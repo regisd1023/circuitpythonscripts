@@ -28,6 +28,7 @@ DEFAULT_SHAKE = 1           # lower number is more sensitive
 # you can define more animation functions below
 # here, specify the four to be used
 ANIMATIONS = ('spin', 'pulse', 'strobe', 'sparkle')
+SEQUIN_FLICK_RATE = 5
 #===| User Config |==================================================
 
 # Configuration settings
@@ -55,7 +56,22 @@ ble._adapter.name = SNOWGLOBE_NAME #pylint: disable=protected-access
 # Setup sequin LEDs:
 led1 = digitalio.DigitalInOut(board.A1)
 led1.direction = digitalio.Direction.OUTPUT
+led2 = digitalio.DigitalInOut(board.A2)
+led2.direction = digitalio.Direction.OUTPUT
+led3 = digitalio.DigitalInOut(board.A3)
+led3.direction = digitalio.Direction.OUTPUT
+led4 = digitalio.DigitalInOut(board.A4)
+led4.direction = digitalio.Direction.OUTPUT
+led5 = digitalio.DigitalInOut(board.A5)
+led5.direction = digitalio.Direction.OUTPUT
+led6 = digitalio.DigitalInOut(board.A6)
+led6.direction = digitalio.Direction.OUTPUT
+led8 = digitalio.DigitalInOut(board.A8)
+led8.direction = digitalio.Direction.OUTPUT
+led9 = digitalio.DigitalInOut(board.A9)
+led9.direction = digitalio.Direction.OUTPUT
 
+ledlist = [led1,led2,led3,led4,led5,led6,led8,led9]
 
 #--| ANIMATIONS |----------------------------------------------------
 def spin(config):
@@ -85,8 +101,9 @@ def pulse(config):
             if brightness < 0:
                 brightness = 0
                 delta *= -1
-            if random.randint(1,3) == 1:
-                toggle_led(led1)
+            for myled in ledlist:
+                if random.randint(1,SEQUIN_FLICK_RATE) == 1:
+                    toggle_led(myled)
             pixels.brightness = brightness
             last_update = time.monotonic()
 
@@ -143,11 +160,11 @@ def indicate(event=None):
             time.sleep(0.1)
 
 # flip a given LED
-def toggle_led(myled):
-    if myled.value:
-        myled.value = False
+def toggle_led(local_led):
+    if local_led.value:
+        local_led.value = False
     else:
-        myled.value = True
+        local_led.value = True
     return()
 
 
