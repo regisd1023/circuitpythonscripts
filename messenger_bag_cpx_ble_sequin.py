@@ -66,12 +66,8 @@ led5 = digitalio.DigitalInOut(board.A5)
 led5.direction = digitalio.Direction.OUTPUT
 led6 = digitalio.DigitalInOut(board.A6)
 led6.direction = digitalio.Direction.OUTPUT
-led8 = digitalio.DigitalInOut(board.A8)
-led8.direction = digitalio.Direction.OUTPUT
-led9 = digitalio.DigitalInOut(board.A9)
-led9.direction = digitalio.Direction.OUTPUT
 
-ledlist = [led1,led2,led3,led4,led5,led6,led8,led9]
+ledlist = [led1,led2,led3,led4,led5,led6]
 
 #--| ANIMATIONS |----------------------------------------------------
 def spin(config):
